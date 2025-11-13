@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-// Validation rules for user registration
+// Validation rules for registering a user
 exports.validateRegister = [
     body("username")
         .trim()
@@ -30,7 +30,7 @@ exports.validateRegister = [
         .withMessage("Age must be between 13 and 120"),
 ];
 
-// Validation rules for user login
+// Validation rules for login-ing a user
 exports.validateLogin = [
     body("username").trim().notEmpty().withMessage("Username is required"),
 

@@ -18,7 +18,7 @@ router.get(
     "/:id",
     validateId,
     handleValidationErrors,
-    pixelController.ctrl.getPixel
+    pixelController.getPixel
 );
 
 // POST /pixels/:id - Create a new pixel
