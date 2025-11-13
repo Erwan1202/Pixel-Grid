@@ -1,19 +1,13 @@
-// src/routes/adminRoutes.js
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
-
-// TODO (DEV A): Importer les middlewares checkJwt et checkRole
-// const checkJwt = require('../middlewares/checkJwt');
-// const checkRole = require('../middlewares/checkRole');
 
 /**
  * @swagger
  * tags:
  * - name: Admin
- * description: Actions reservees aux administrateurs
+ *   description: Actions reservees aux administrateurs
  */
-
 /**
  * @swagger
  * /api/admin/reset-grid:
@@ -29,11 +23,8 @@ const adminController = require('../controllers/adminController');
  *         description: Erreur interne du serveur.
  */
 router.post(
-  '/reset-grid',
-  // TODO (DEV A): Appliquer les middlewares ici
-  // checkJwt,
-  // checkRole('admin'),
-  adminController.resetGrid
+	'/reset-grid',
+	adminController.resetGrid
 );
 
 module.exports = router;

@@ -1,9 +1,5 @@
-// src/controllers/adminController.js
 const adminService = require('../services/adminService');
 
-/*
- * (US-8) Contrôleur pour réinitialiser la grille
- */
 exports.resetGrid = async (req, res) => {
   try {
     const result = await adminService.resetGrid();

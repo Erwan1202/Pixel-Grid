@@ -1,5 +1,3 @@
-// Fichier: src/config/database.js
-
 require('dotenv').config();
 const { Pool } = require('pg');
 const mongoose = require('mongoose');
