@@ -11,10 +11,13 @@ exports.listPixels = async (req, res) => {
 
 exports.getPixel = async (req, res) => {
     try {
-        const pixel = await Pixel.findById(Number(req.params.id));
+        const pixelId = Number(req.params.id);
+        const pixel = await Pixel.findById(pixelId);
+
         if (!pixel) {
             return res.status(404).json({ error: "Pixel not found" });
         }
+
         res.status(200).json(pixel);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -27,6 +30,7 @@ exports.createPixel = async (req, res) => {
         if (!x || !y || !color || !user_id) {
             return res.status(400).json({ error: "All fields are required" });
         }
+
         const pixel = await Pixel.createOne({ x, y, color, user_id });
         res.status(201).json(pixel);
     } catch (err) {
@@ -36,19 +40,24 @@ exports.createPixel = async (req, res) => {
 
 exports.updatePixel = async (req, res) => {
     try {
+        const pixelId = Number(req.params.id);
         const { x, y, color, user_id } = req.body;
+
         if (!x || !y || !color || !user_id) {
             return res.status(400).json({ error: "All fields are required" });
         }
-        const pixel = await Pixel.updateOne(Number(req.params.id), {
+
+        const pixel = await Pixel.updateOne(pixelId, {
             x,
             y,
             color,
             user_id,
         });
+
         if (!pixel) {
             return res.status(404).json({ error: "Pixel not found" });
         }
+
         res.status(200).json(pixel);
     } catch (err) {
         res.status(500).json({ error: err.message });

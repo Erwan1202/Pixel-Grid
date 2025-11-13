@@ -30,6 +30,7 @@ exports.createUser = async (req, res) => {
         if (!username || !password || !age) {
             return res.status(400).json({ error: "All fields are required" });
         }
+
         const user = await User.createOne({ username, password, age });
         res.status(201).json(user);
     } catch (err) {
@@ -39,19 +40,24 @@ exports.createUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
+        const userId = Number(req.params.id);
         const { username, password, age, is_banned, role } = req.body;
+
         if (!username || !password || !age || !is_banned) {
             return res.status(400).json({ error: "All fields are required" });
         }
-        const user = await User.updateOne(Number(req.params.id), {
+
+        const user = await User.updateOne(userId, {
             username,
             password,
             age,
             is_banned,
         });
+
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
+
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
