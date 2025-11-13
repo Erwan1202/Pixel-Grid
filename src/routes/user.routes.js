@@ -1,10 +1,48 @@
-const router = require("express").Router();
-const ctrl = require("../controllers/user.controller");
+const express = require("express");
+const router = express.Router();
+const userController = require("../controllers/user.controller");
+const {
+    validateId,
+    handleValidationErrors,
+} = require("../middlewares/validator");
+const {
+    validateCreateUser,
+    validateUpdateUser,
+} = require("../middlewares/validators/user.validator");
 
-router.get("/", ctrl.listUsers);
-router.get("/:id", ctrl.getUser);
-router.post("/", ctrl.createUser);
-router.put("/:id", ctrl.updateUser);
-router.delete("/:id", ctrl.deleteUser);
+// GET /users - List all users
+router.get("/", userController.listUsers);
+
+// GET /users/:id - Get a specific user
+router.get(
+    "/:id",
+    validateId,
+    handleValidationErrors,
+    userController.getUser
+);
+
+// POST /users - Create a new user
+router.post(
+    "/",
+    validateCreateUser,
+    handleValidationErrors,
+    userController.createUser
+);
+
+// PUT /users/:id - Update a user
+router.put(
+    "/:id",
+    validateUpdateUser,
+    handleValidationErrors,
+    userController.updateUser
+);
+
+// DELETE /users/:id - Delete a user
+router.delete(
+    "/:id",
+    validateId,
+    handleValidationErrors,
+    userController.deleteUser
+);
 
 module.exports = router;

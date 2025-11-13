@@ -1,0 +1,66 @@
+const { body, param } = require("express-validator");
+
+// Validation rules for creating a user
+exports.validateCreateUser = [
+    body("username")
+        .trim()
+        .isLength({ min: 3, max: 50 })
+        .withMessage("Username must be between 3 and 50 characters")
+        .matches(/^[a-zA-Z0-9_]+$/)
+        .withMessage(
+            "Username can only contain letters, numbers, and underscores"
+        ),
+
+    body("password")
+        .isLength({ min: 8 })
+        .withMessage("Password must be at least 8 characters long")
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+        .withMessage(
+            "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+        ),
+
+    body("age")
+        .isInt({ min: 13, max: 120 })
+        .withMessage("Age must be between 13 and 120"),
+];
+
+// Validation rules for updating a user
+exports.validateUpdateUser = [
+    param("id")
+        .isInt({ min: 1 })
+        .withMessage("User ID must be a positive integer"),
+
+    body("username")
+        .optional()
+        .trim()
+        .isLength({ min: 3, max: 50 })
+        .withMessage("Username must be between 3 and 50 characters")
+        .matches(/^[a-zA-Z0-9_]+$/)
+        .withMessage(
+            "Username can only contain letters, numbers, and underscores"
+        ),
+
+    body("password")
+        .optional()
+        .isLength({ min: 8 })
+        .withMessage("Password must be at least 8 characters long")
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+        .withMessage(
+            "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+        ),
+
+    body("age")
+        .optional()
+        .isInt({ min: 13, max: 120 })
+        .withMessage("Age must be between 13 and 120"),
+
+    body("is_banned")
+        .optional()
+        .isBoolean()
+        .withMessage("is_banned must be a boolean value"),
+
+    body("role")
+        .optional()
+        .isIn(["user", "admin", "moderator"])
+        .withMessage("Role must be one of: user, admin, moderator"),
+];

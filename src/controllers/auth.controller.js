@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 
@@ -8,15 +7,7 @@ exports.registerUser = async (req, res) => {
         if (!username || !password || !age) {
             return res.status(400).json({ err: "All fields are requried" });
         }
-        const hashed = await bcrypt.hash(
-            password,
-            Number(process.env.BCRYPT_SALT_ROUNDS)
-        );
-        const user = await User.createOne({
-            username,
-            password: hashed,
-            age,
-        });
+        const user = await User.createOne({ username, password, age });
         res.status(201).json(user);
     } catch (err) {
         res.status(409).json({ error: err.message });

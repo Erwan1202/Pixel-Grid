@@ -7,9 +7,10 @@ class Pixel {
     }
 
     static async findById(id) {
-        const result = await pool.query("SELECT * FROM pixels WHERE id = $1", [
-            id,
-        ]);
+        const result = await pool.query(
+            "SELECT * FROM pixels WHERE id = $1",
+            [id]
+        );
         return result.rows[0];
     }
 

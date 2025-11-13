@@ -57,10 +57,13 @@ exports.updatePixel = async (req, res) => {
 
 exports.deletePixel = async (req, res) => {
     try {
-        const deletedCount = await Pixel.deleteOne(Number(req.params.id));
+        const pixelId = Number(req.params.id);
+        const deletedCount = await Pixel.deleteOne(pixelId);
+
         if (deletedCount === 0) {
             return res.status(404).json({ error: "Pixel not found" });
         }
+
         res.status(204).send();
     } catch (err) {
         res.status(500).json({ error: err.message });

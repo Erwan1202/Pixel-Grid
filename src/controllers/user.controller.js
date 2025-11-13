@@ -5,16 +5,19 @@ exports.listUsers = async (req, res) => {
         const users = await User.findAll();
         res.status(200).json(users);
     } catch (err) {
-        res.status(500).json({ error: err.messgage });
+        res.status(500).json({ error: err.message });
     }
 };
 
 exports.getUser = async (req, res) => {
     try {
-        const user = await User.findById(Number(req.params.id));
+        const userId = Number(req.params.id);
+        const user = await User.findById(userId);
+
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
+
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -57,10 +60,13 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     try {
-        const deletedCount = await User.deleteOne(Number(req.params.id));
+        const userId = Number(req.params.id);
+        const deletedCount = await User.deleteOne(userId);
+
         if (deletedCount === 0) {
             return res.status(404).json({ error: "User not found" });
         }
+
         res.status(204).send();
     } catch (err) {
         res.status(500).json({ error: err.message });
