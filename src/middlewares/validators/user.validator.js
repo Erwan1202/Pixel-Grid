@@ -19,9 +19,16 @@ exports.validateCreateUser = [
             "Password must contain at least one uppercase letter, one lowercase letter, and one number"
         ),
 
-    body("age")
-        .isInt({ min: 13, max: 120 })
-        .withMessage("Age must be between 13 and 120"),
+    body("birth_date")
+        .isISO8601()
+        .withMessage("Birth date must be a valid date in YYYY-MM-DD format")
+        .custom((value) => {
+            const year = new Date(value).getFullYear();
+            if (year < 1950 || year > 2005) {
+                throw new Error("Birth date must be between 1950 and 2005");
+            }
+            return true;
+        }),
 ];
 
 // Validation rules for updating a user
@@ -49,10 +56,16 @@ exports.validateUpdateUser = [
             "Password must contain at least one uppercase letter, one lowercase letter, and one number"
         ),
 
-    body("age")
-        .optional()
-        .isInt({ min: 13, max: 120 })
-        .withMessage("Age must be between 13 and 120"),
+    body("birth_date")
+        .isISO8601()
+        .withMessage("Birth date must be a valid date in YYYY-MM-DD format")
+        .custom((value) => {
+            const year = new Date(value).getFullYear();
+            if (year < 1950 || year > 2005) {
+                throw new Error("Birth date must be between 1950 and 2005");
+            }
+            return true;
+        }),
 
     body("is_banned")
         .optional()

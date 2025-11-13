@@ -1,5 +1,5 @@
-const Pixel = require("../models/Pixel");
-const PixelLog = require("../models/PixelLog");
+const Pixel = require("../models/pixel.model");
+const pixelChangeSchema = require("../models/move.model");
 
 async function getGridState() {
     return Pixel.getAll();

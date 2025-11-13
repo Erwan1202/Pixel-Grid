@@ -7,8 +7,7 @@ const swaggerDefinition = {
     info: {
         title: "PixelGrid API",
         version: "1.0.0",
-        description:
-            "Documentation de l'API RESTful pour le projet PixelGrid (r/place clone)",
+        description: "API documentation for the Grid-Pixel r/place clone.",
     },
     servers: [
         {

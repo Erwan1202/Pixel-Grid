@@ -23,24 +23,24 @@ class User {
         return result.rows[0];
     }
 
-    static async createOne({ username, password, age }) {
+    static async createOne({ username, password, birth_date }) {
         const nHash = Number(process.env.BCRYPT_SALT_ROUNDS);
         const hashed = await bcrypt.hash(password, nHash);
 
         const result = await pool.query(
-            "INSERT INTO users (username, password, age) VALUES ($1, $2, $3) RETURNING *",
-            [username, hashed, age]
+            "INSERT INTO users (username, password, birth_date) VALUES ($1, $2, $3) RETURNING *",
+            [username, hashed, birth_date]
         );
         return result.rows[0];
     }
 
-    static async updateOne(id, { username, password, age, is_banned }) {
+    static async updateOne(id, { username, password, birth_date, is_banned }) {
         const nHash = Number(process.env.BCRYPT_SALT_ROUNDS);
         const hashed = await bcrypt.hash(password, nHash);
 
         const result = await pool.query(
-            "UPDATE users SET username = $1, password = $2, age = $3, is_banned = $4 WHERE id = $5 RETURNING *",
-            [username, hashed, age, is_banned, id]
+            "UPDATE users SET username = $1, password = $2, birth_date = $3, is_banned = $4 WHERE id = $5 RETURNING *",
+            [username, hashed, birth_date, is_banned, id]
         );
         return result.rows[0];
     }

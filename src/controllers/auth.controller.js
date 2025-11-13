@@ -4,12 +4,13 @@ const User = require("../models/user.model");
 
 exports.registerUser = async (req, res) => {
     try {
-        const { username, password, age } = req.body;
-        if (!username || !password || !age) {
+        const { username, password, birth_date } = req.body;
+        if (!username || !password || !birth_date) {
             return res.status(400).json({ err: "All fields are requried" });
         }
 
-        const user = await User.createOne({ username, password, age });
+        const user = await User.createOne({ username, password, birth_date });
+
         res.status(201).json(user);
     } catch (err) {
         res.status(409).json({ error: err.message });
@@ -34,7 +35,7 @@ exports.loginUser = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { userId: user.id, username: user.username },
+            { sub: user.id, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN }
         );

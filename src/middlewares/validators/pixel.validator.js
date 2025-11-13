@@ -22,11 +22,11 @@ exports.validateCreatePixel = [
         .matches(/^#([0-9A-Fa-f]{6})$/)
         .withMessage("color must be a valid hex color code (e.g. #FF5733)"),
 
-    body("user_id")
+    body("placed_by")
         .notEmpty()
-        .withMessage("user_id is required")
+        .withMessage("placed_by is required")
         .isInt({ min: 1 })
-        .withMessage("user_id must be a positive integer"),
+        .withMessage("placed_by must be a positive integer"),
 ];
 
 // Validation rules for updating a pixel
@@ -50,8 +50,8 @@ exports.validateUpdatePixel = [
         .matches(/^#([0-9A-Fa-f]{6})$/)
         .withMessage("color must be a valid hex color code (e.g. #FF5733)"),
 
-    body("user_id")
+    body("placed_by")
         .optional()
         .isInt({ min: 1 })
-        .withMessage("user_id must be a positive integer"),
+        .withMessage("placed_by must be a positive integer"),
 ];

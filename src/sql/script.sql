@@ -1,12 +1,11 @@
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    age INT NOT NULL,
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_placed_at TIMESTAMP,
+    password VARCHAR(100) NOT NULL,
+    birth_date DATE NOT NULL,
     is_banned BOOLEAN DEFAULT FALSE,
-    role VARCHAR(50) DEFAULT 'user' CHECK (role IN ('admin', 'user')) NOT NULL
+    role VARCHAR(50) DEFAULT 'user' CHECK (role IN ('admin', 'user')) NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS pixels(
@@ -14,6 +13,6 @@ CREATE TABLE IF NOT EXISTS pixels(
     x INT NOT NULL,
     y INT NOT NULL,
     color CHAR(7) NOT NULL,
-    user_id INT NOT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    placed_by INT NOT NULL REFERENCES users(id),
+    placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

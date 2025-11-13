@@ -23,11 +23,11 @@ exports.validateRegister = [
             "Password must contain at least one uppercase letter, one lowercase letter, and one number"
         ),
 
-    body("age")
+    body("birth_date")
         .notEmpty()
-        .withMessage("Age is required")
+        .withMessage("Birth date is required")
         .isInt({ min: 13, max: 120 })
-        .withMessage("Age must be between 13 and 120"),
+        .withMessage("Birth date must be between 1950 and 2005"),
 ];
 
 // Validation rules for login-ing a user

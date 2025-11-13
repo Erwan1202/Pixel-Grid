@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const requireRole = require("../middlewares/roles");
+const authenticate = require("../middlewares/authenticate");
 const pixelController = require("../controllers/pixels.controller");
 const {
     validateId,
@@ -40,8 +42,10 @@ router.put(
 // DELETE /pixels/:id - Delete a pixel
 router.delete(
     "/:id",
+    authenticate,
     validateId,
     handleValidationErrors,
+    requireRole("admin"),
     pixelController.deletePixel
 );
 

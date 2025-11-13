@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const requireRole = require("../middlewares/roles");
+const authenticate = require("../middlewares/authenticate");
 const userController = require("../controllers/user.controller");
+
 const {
     validateId,
     handleValidationErrors,
@@ -40,8 +43,10 @@ router.put(
 // DELETE /users/:id - Delete a user
 router.delete(
     "/:id",
+    authenticate,
     validateId,
     handleValidationErrors,
+    requireRole("admin"),
     userController.deleteUser
 );
 
