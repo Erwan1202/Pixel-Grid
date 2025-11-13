@@ -5,7 +5,8 @@ const cors = require('cors');
 const { connectMongo } = require('./config/database');
 
 // --- Import des Routes ---
-const gridRoutes = require('./routes/gridRoutes'); 
+const gridRoutes = require('./routes/gridRoutes');
+const adminRoutes = require('./routes/adminRoutes'); 
 
 // --- Import Swagger ---
 const setupSwagger = require('./config/swagger');
@@ -31,6 +32,10 @@ app.get('/', (req, res) => {
 
 // On branche les routes de la grille
 app.use('/api/grid', gridRoutes); 
+
+
+// on branche les routes admin
+app.use('/api/admin', adminRoutes);
 
 // --- Démarrage Serveur ---
 const PORT = process.env.PORT || 3000;
