@@ -14,18 +14,18 @@ class Pixel {
         return result.rows[0];
     }
 
-    static async createOne({ x, y, color, placed_by }) {
+    static async createOne({ x, y, color, placed_by, canvas_id }) {
         const result = await pool.query(
-            "INSERT INTO pixels (x, y, color, placed_by) VALUES ($1, $2, $3, $4) RETURNING *",
-            [x, y, color, placed_by]
+            "INSERT INTO pixels (x, y, color, placed_by, canvas_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [x, y, color, placed_by, canvas_id]
         );
         return result.rows[0];
     }
 
-    static async updateOne(id, { x, y, color, placed_by }) {
+    static async updateOne(id, { x, y, color, placed_by, canvas_id }) {
         const result = await pool.query(
-            "UPDATE pixels SET x = $1, y = $2, color = $3, placed_by = $4 WHERE id = $5 RETURNING *",
-            [x, y, color, placed_by, id]
+            "UPDATE pixels SET x = $1, y = $2, color = $3, placed_by = $4, canvas_id = $5 WHERE id = $6 RETURNING *",
+            [x, y, color, placed_by, canvas_id, id]
         );
         return result.rows[0];
     }

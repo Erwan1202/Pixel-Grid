@@ -1,27 +1,47 @@
 const express = require("express");
 const router = express.Router();
+const requireRole = require("../middlewares/roles");
+const authenticate = require("../middlewares/authenticate");
 const adminController = require("../controllers/admin.controller");
 
-/**
- * @swagger
- * tags:
- * - name: Admin
- *   description: Actions reservees aux administrateurs
- */
-/**
- * @swagger
- * /api/admin/reset-grid:
- *   post:
- *     summary: Reinitialise la grille
- *     tags:
- *       - Admin
- *     description: (Admin) Vide completement la table des pixels (PostgreSQL).
- *     responses:
- *       200:
- *         description: Grille reinitialisee avec succes.
- *       500:
- *         description: Erreur interne du serveur.
- */
-router.post("/reset-grid", adminController.resetGrid);
+// GET /bans - List all bans
+router.get(
+    "/bans",
+    authenticate,
+    requireRole("admin"),
+    adminController.listBans
+);
+
+// GET /bans/:id - Get a specific ban
+router.get(
+    "/bans/:id",
+    authenticate,
+    requireRole("admin"),
+    adminController.getBan
+);
+
+// POST /bans - Create a new ban
+router.post(
+    "/bans",
+    authenticate,
+    requireRole("admin"),
+    adminController.createBan
+);
+
+// PUT /bans/:id - Update a ban
+router.put(
+    "/bans/:id",
+    authenticate,
+    requireRole("admin"),
+    adminController.updateBan
+);
+
+// DELETE /bans/:id - Delete a ban
+router.delete(
+    "/bans/:id",
+    authenticate,
+    requireRole("admin"),
+    adminController.deleteBan
+);
 
 module.exports = router;

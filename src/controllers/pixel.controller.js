@@ -26,12 +26,19 @@ exports.getPixel = async (req, res) => {
 
 exports.createPixel = async (req, res) => {
     try {
-        const { x, y, color, placed_by } = req.body;
-        if (!x || !y || !color || !placed_by) {
+        const { x, y, color, placed_by, canvas_id } = req.body;
+        if (!x || !y || !color || !placed_by || !canvas_id) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const pixel = await Pixel.createOne({ x, y, color, placed_by });
+        const pixel = await Pixel.createOne({
+            x,
+            y,
+            color,
+            placed_by,
+            canvas_id,
+        });
+
         res.status(201).json(pixel);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -41,9 +48,9 @@ exports.createPixel = async (req, res) => {
 exports.updatePixel = async (req, res) => {
     try {
         const pixelId = Number(req.params.id);
-        const { x, y, color, placed_by } = req.body;
+        const { x, y, color, placed_by, canvas_id } = req.body;
 
-        if (!x || !y || !color || !placed_by) {
+        if (!x || !y || !color || !placed_by || !canvas_id) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
@@ -52,6 +59,7 @@ exports.updatePixel = async (req, res) => {
             y,
             color,
             placed_by,
+            canvas_id,
         });
 
         if (!pixel) {

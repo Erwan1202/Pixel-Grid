@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const requireRole = require("../middlewares/roles");
 const authenticate = require("../middlewares/authenticate");
-const pixelController = require("../controllers/pixels.controller");
+const pixelController = require("../controllers/pixel.controller");
 const {
     validateId,
     handleValidationErrors,

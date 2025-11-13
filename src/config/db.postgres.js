@@ -13,7 +13,7 @@ pool.query("SELECT NOW()", (err, res) => {
     if (err) {
         console.error("Failed to connect to PostgreSQL: ", err.message);
     } else {
-        console.log("Successfully connected to PostgreSQL: ", res.rows[0].now);
+        console.log("Successfully connected to PostgreSQL");
     }
 });
 

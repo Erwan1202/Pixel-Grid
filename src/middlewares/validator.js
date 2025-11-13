@@ -8,7 +8,6 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 
-// Can validate all SQL IDs
 exports.validateId = [
     param("id")
         .isInt({ min: 1 })

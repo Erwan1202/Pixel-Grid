@@ -3,7 +3,6 @@ const router = express.Router();
 const requireRole = require("../middlewares/roles");
 const authenticate = require("../middlewares/authenticate");
 const userController = require("../controllers/user.controller");
-
 const {
     validateId,
     handleValidationErrors,
