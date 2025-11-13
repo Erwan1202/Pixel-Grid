@@ -1,10 +1,7 @@
-// src/routes/gridRoutes.js
 const express = require('express');
 const router = express.Router();
 const gridController = require('../controllers/gridController');
 const pixelRateLimiter = require('../middlewares/rateLimiter');
-
-// --- DEBUT DOCUMENTATION SWAGGER ---
 
 /**
  * @swagger
@@ -33,14 +30,12 @@ const pixelRateLimiter = require('../middlewares/rateLimiter');
  *           type: string
  *           description: Message d'erreur.
  */
-
 /**
  * @swagger
  * tags:
  *   - name: Grid
  *     description: Gestion de la grille et des pixels
  */
-
 /**
  * @swagger
  * /api/grid:
@@ -65,7 +60,7 @@ const pixelRateLimiter = require('../middlewares/rateLimiter');
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/', gridController.getGridState); // <-- Ce '/' correspond au '/api/grid'
+router.get('/', gridController.getGridState);
 
 /**
  * @swagger
@@ -106,11 +101,6 @@ router.get('/', gridController.getGridState); // <-- Ce '/' correspond au '/api/
  *       500:
  *         description: Erreur interne du serveur.
  */
-router.post(
-  '/pixel', // <-- Ce '/pixel' correspond au '/api/grid/pixel'
-  pixelRateLimiter,
-  // TODO: Ajouter checkJwt quand DEV A a terminé
-  gridController.placePixel
-);
+router.post('/pixel', pixelRateLimiter, gridController.placePixel);
 
 module.exports = router;
