@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_placed_at TIMESTAMP,
     is_banned BOOLEAN DEFAULT FALSE
+    role VARCHAR(50) CHECK (role IN ('admin', 'user')) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS pixels(

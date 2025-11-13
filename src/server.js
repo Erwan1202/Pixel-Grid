@@ -3,10 +3,9 @@ const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 
-const { connectMongo } = require("./config/database");
+const connectMongo = require("./config/db.mongo");
 const setupSwagger = require("./config/swagger");
 
-const gridRoutes = require("./routes/gridRoutes");
 const adminRoutes = require("./routes/admin.routes");
 const authRoutes = require("./routes/auth.routes");
 const pixelRoutes = require("./routes/pixel.routes");
@@ -27,14 +26,13 @@ const io = new Server(server, {
 
 app.set("io", io);
 
-connectMongo();
+// connectMongo();
 
 app.use(cors());
 app.use(express.json());
 
 setupSwagger(app);
 
-app.use("/api/grid", gridRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/pixel", pixelRoutes);
