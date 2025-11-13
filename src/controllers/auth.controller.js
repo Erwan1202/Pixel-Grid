@@ -1,0 +1,51 @@
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user.model");
+
+exports.registerUser = async (req, res) => {
+    try {
+        const { username, password, age } = req.body;
+        if (!username || !password || !age) {
+            return res.status(400).json({ error: "All fields are requried" });
+        }
+
+        const hashed = await bcrypt.hash(
+            password,
+            Number(process.env.BCRYPT_SALT_ROUNDS)
+        );
+        const user = await User.createOne({
+            username,
+            password: hashed,
+            age,
+        });
+
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(409).json({ error: error.message });
+    }
+};
+
+exports.loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        const user = await User.findByUsername(username);
+        const check = await bcrypt.compare(password, user.password);
+
+        if (!check) {
+            return res.status(401).json({ error: "Invalid password" });
+        }
+
+        const token = jwt.sign(
+            { userId: user.id, username: user.username },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRES_IN }
+        );
+        res.status(200).json(token);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
