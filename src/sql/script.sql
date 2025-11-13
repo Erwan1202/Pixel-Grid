@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS users(
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_placed_at TIMESTAMP,
+    is_banned BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS pixels(
+    id SERIAL PRIMARY KEY,
+    x INT NOT NULL,
+    y INT NOT NULL,
+    color CHAR(7) NOT NULL,
+    user_id INT NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

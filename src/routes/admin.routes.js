@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const adminController = require('../controllers/adminController');
+const adminController = require("../controllers/admin.controller");
 
 /**
  * @swagger
@@ -22,9 +22,6 @@ const adminController = require('../controllers/adminController');
  *       500:
  *         description: Erreur interne du serveur.
  */
-router.post(
-	'/reset-grid',
-	adminController.resetGrid
-);
+router.post("/reset-grid", adminController.resetGrid);
 
 module.exports = router;
