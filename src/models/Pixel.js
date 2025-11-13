@@ -1,10 +1,8 @@
 // src/models/Pixel.js
 const { pgPool } = require('../config/database');
 
-console.log('--- Est-ce que pgPool existe dans Pixel.js ? ---', pgPool ? 'Oui' : 'Non');
-
 const Pixel = {
-  /**
+  /*
    * Récupère tous les pixels (état actuel de la grille)
    */
   async getAll() {
@@ -14,7 +12,7 @@ const Pixel = {
     return result.rows;
   },
 
-  /**
+  /*
    * Place ou met à jour un pixel (logique "UPSERT").
    * Si le pixel (x, y) existe, il est mis à jour.
    * Sinon, il est créé.

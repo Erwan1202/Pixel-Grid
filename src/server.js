@@ -7,6 +7,9 @@ const { connectMongo } = require('./config/database');
 // --- Import des Routes ---
 const gridRoutes = require('./routes/gridRoutes'); 
 
+// --- Import Swagger ---
+const setupSwagger = require('./config/swagger');
+
 require('dotenv').config();
 
 const app = express();
@@ -17,6 +20,9 @@ connectMongo();
 // --- Middlewares Globaux ---
 app.use(cors());
 app.use(express.json()); 
+
+// --- Documentation Swagger ---
+setupSwagger(app);
 
 // --- Routes ---
 app.get('/', (req, res) => {

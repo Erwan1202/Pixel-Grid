@@ -2,7 +2,7 @@
 const Pixel = require('../models/Pixel');
 const PixelLog = require('../models/PixelLog');
 
-/**
+/*
  * Service pour récupérer l'état complet de la grille.
  */
 async function getGridState() {
@@ -10,7 +10,7 @@ async function getGridState() {
   return Pixel.getAll();
 }
 
-/**
+/*
  * Service pour placer un pixel.
  */
 async function placePixel(x, y, color, userId) {

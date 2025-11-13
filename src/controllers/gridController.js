@@ -1,7 +1,7 @@
 // src/controllers/gridController.js
 const gridService = require('../services/gridService');
 
-/**
+/*
  * US-4: Récupérer l'état de la grille
  */
 exports.getGridState = async (req, res) => {
@@ -14,7 +14,7 @@ exports.getGridState = async (req, res) => {
   }
 };
 
-/**
+/*
  * US-5: Placer un pixel
  */
 exports.placePixel = async (req, res) => {
