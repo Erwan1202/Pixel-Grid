@@ -29,10 +29,6 @@ exports.validateCreatePixel = [
 ];
 
 exports.validateUpdatePixel = [
-    param("id")
-        .isInt({ min: 1 })
-        .withMessage("id must be a valid integer"),
-
     body("x")
         .optional()
         .isInt({ min: 0 })
