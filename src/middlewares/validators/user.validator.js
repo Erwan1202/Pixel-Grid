@@ -31,10 +31,6 @@ exports.validateCreateUser = [
 ];
 
 exports.validateUpdateUser = [
-    param("id")
-        .isInt({ min: 1 })
-        .withMessage("User ID must be a positive integer"),
-
     body("username")
         .optional()
         .trim()
