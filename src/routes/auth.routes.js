@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth.controller");
+const authenticate = require("../middlewares/authenticate");
 const { handleValidationErrors } = require("../middlewares/validator");
 const {
     validateRegister,
@@ -74,7 +75,7 @@ router.post(
  *                 example: P@ssw0rd!
  *     responses:
  *       200:
- *         description: User logged in successfully (returns JWT token).
+ *         description: User logged in successfully (returns JWT token and refresh token).
  *       400:
  *         description: Validation error.
  *       401:
@@ -85,6 +86,67 @@ router.post(
     validateLogin,
     handleValidationErrors,
     authController.loginUser
+);
+
+/**
+ * @openapi
+ * /api/auth/refresh:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Refresh access token
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *     responses:
+ *       200:
+ *         description: New access token generated.
+ *       401:
+ *         description: Invalid or expired refresh token.
+ */
+router.post(
+    "/refresh",
+    authController.refreshToken
+);
+
+/**
+ * @openapi
+ * /api/auth/logout:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Logout a user
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *     responses:
+ *       200:
+ *         description: User logged out successfully.
+ *       401:
+ *         description: Unauthorized.
+ */
+router.post(
+    "/logout",
+    authenticate,
+    authController.logoutUser
 );
 
 module.exports = router;

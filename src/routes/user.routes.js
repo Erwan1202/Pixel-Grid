@@ -14,7 +14,7 @@ const {
 
 /**
  * @openapi
- * /users:
+ * /api/users:
  *   get:
  *     tags: [User]
  *     summary: List all users
@@ -29,7 +29,7 @@ router.get(
 
 /**
  * @openapi
- * /users/{id}:
+ * /api/users/{id}:
  *   get:
  *     tags: [User]
  *     summary: Get a specific user by ID
@@ -57,7 +57,7 @@ router.get(
 
 /**
  * @openapi
- * /users:
+ * /api/users:
  *   post:
  *     tags: [User]
  *     summary: Create a new user
@@ -98,7 +98,7 @@ router.post(
 
 /**
  * @openapi
- * /users/{id}:
+ * /api/users/{id}:
  *   put:
  *     tags: [User]
  *     summary: Update an existing user
@@ -145,7 +145,7 @@ router.put(
 
 /**
  * @openapi
- * /users/{id}:
+ * /api/users/{id}:
  *   delete:
  *     tags: [User]
  *     summary: Delete a user (admin only)
