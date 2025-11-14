@@ -3,6 +3,14 @@ const router = express.Router();
 const requireRole = require("../middlewares/roles");
 const authenticate = require("../middlewares/authenticate");
 const adminController = require("../controllers/admin.controller");
+const {
+    validateId,
+    handleValidationErrors,
+} = require("../middlewares/validator");
+const {
+    validateCreateBan,
+    validateUpdateBan
+} = require("../middlewares/validators/ban.validator");
 
 // GET /bans - List all bans
 router.get(
@@ -16,6 +24,8 @@ router.get(
 router.get(
     "/bans/:id",
     authenticate,
+    validateId,
+    handleValidationError,
     requireRole("admin"),
     adminController.getBan
 );
@@ -24,6 +34,8 @@ router.get(
 router.post(
     "/bans",
     authenticate,
+    validateCreateBan,
+    handleValidationErrors,
     requireRole("admin"),
     adminController.createBan
 );
@@ -32,6 +44,8 @@ router.post(
 router.put(
     "/bans/:id",
     authenticate,
+    validateId,
+    handleValidationErrors,
     requireRole("admin"),
     adminController.updateBan
 );
@@ -40,6 +54,8 @@ router.put(
 router.delete(
     "/bans/:id",
     authenticate,
+    validateId,
+    handleValidationErrors,
     requireRole("admin"),
     adminController.deleteBan
 );
