@@ -30,7 +30,7 @@ router.get(
   canvasController.getCanvas
 );
 
-// POST /canvases - Create a canvas
+// POST /canvases - Create a new canvas
 router.post(
   "/",
   authenticate,
