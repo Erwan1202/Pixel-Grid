@@ -38,7 +38,7 @@ exports.validateUpdatePixel = [
         .isInt({ min: 0 })
         .withMessage("x must be a non-negative integer"),
 
-        body("y")
+    body("y")
         .optional()
         .isInt({ min: 0 })
         .withMessage("y must be a non-negative integer"),
