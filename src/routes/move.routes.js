@@ -5,7 +5,12 @@ const authenticate = require("../middlewares/authenticate");
 const moveController = require("../controllers/move.controller");
 
 // GET /moves - List all moves
-router.get("/", authenticate, requireRole("admin"), moveController.listMoves);
+router.get(
+    "/",
+    authenticate,
+    requireRole("admin"),
+    moveController.listMoves
+);
 
 // GET /moves/:id - Get a specific move
 router.get(

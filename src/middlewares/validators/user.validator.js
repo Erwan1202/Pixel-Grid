@@ -1,6 +1,5 @@
 const { body, param } = require("express-validator");
 
-// Validation rules for creating a user
 exports.validateCreateUser = [
     body("username")
         .trim()
@@ -31,7 +30,6 @@ exports.validateCreateUser = [
         }),
 ];
 
-// Validation rules for updating a user
 exports.validateUpdateUser = [
     param("id")
         .isInt({ min: 1 })

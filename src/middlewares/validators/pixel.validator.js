@@ -1,6 +1,5 @@
 const { body, param } = require("express-validator");
 
-// Validation rules for creating a pixel
 exports.validateCreatePixel = [
     body("x")
         .notEmpty()
@@ -29,16 +28,17 @@ exports.validateCreatePixel = [
         .withMessage("placed_by must be a positive integer"),
 ];
 
-// Validation rules for updating a pixel
 exports.validateUpdatePixel = [
-    param("id").isInt({ min: 1 }).withMessage("id must be a valid integer"),
+    param("id")
+        .isInt({ min: 1 })
+        .withMessage("id must be a valid integer"),
 
     body("x")
         .optional()
         .isInt({ min: 0 })
         .withMessage("x must be a non-negative integer"),
 
-    body("y")
+        body("y")
         .optional()
         .isInt({ min: 0 })
         .withMessage("y must be a non-negative integer"),

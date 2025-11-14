@@ -1,6 +1,5 @@
 const { body } = require("express-validator");
 
-// Validation rules for registering a user
 exports.validateRegister = [
     body("username")
         .trim()
@@ -9,9 +8,7 @@ exports.validateRegister = [
         .isLength({ min: 3, max: 50 })
         .withMessage("Username must be between 3 and 50 characters")
         .matches(/^[a-zA-Z0-9_]+$/)
-        .withMessage(
-            "Username can only contain letters, numbers, and underscores"
-        ),
+        .withMessage("Username can only contain letters, numbers, and underscores"),
 
     body("password")
         .notEmpty()
@@ -27,12 +24,16 @@ exports.validateRegister = [
         .notEmpty()
         .withMessage("Birth date is required")
         .isInt({ min: 13, max: 120 })
-        .withMessage("Birth date must be between 1950 and 2005"),
+        .withMessage("Birth date must be between 1950 and 120"),
 ];
 
-// Validation rules for login-ing a user
 exports.validateLogin = [
-    body("username").trim().notEmpty().withMessage("Username is required"),
+    body("username")
+        .trim()
+        .notEmpty()
+        .withMessage("Username is required"),
 
-    body("password").notEmpty().withMessage("Password is required"),
+    body("password")
+        .notEmpty()
+        .withMessage("Password is required"),
 ];
