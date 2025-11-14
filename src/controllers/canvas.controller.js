@@ -52,7 +52,6 @@ exports.updateCanvas = async (req, res) => {
             width,
             height,
         });
-
         if (!canvas) {
             return res.status(404).json({ error: "Canvas not found" });
         }

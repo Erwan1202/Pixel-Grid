@@ -48,7 +48,6 @@ exports.updateBan = async (req, res) => {
         }
 
         const ban = await Ban.updateOne(banId, { reason, user_id, expires_at });
-
         if (!ban) {
             return res.status(404).json({ error: "Ban not found" });
         }

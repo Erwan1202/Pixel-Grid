@@ -38,7 +38,6 @@ exports.createPixel = async (req, res) => {
             placed_by,
             canvas_id,
         });
-
         res.status(201).json(pixel);
     } catch (err) {
         res.status(500).json({ error: err.message });

@@ -53,7 +53,6 @@ exports.updateUser = async (req, res) => {
             birth_date,
             is_banned,
         });
-
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }

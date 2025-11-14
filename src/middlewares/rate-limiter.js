@@ -3,7 +3,7 @@ const rateLimit = require("express-rate-limit");
 
 const WINDOW_MS = process.env.PIXEL_COOLDOWN_MINUTES * 60 * 1000;
 
-const pixelRateLimiter = rateLimit({
+const rateLimiter = rateLimit({
     windowMs: WINDOW_MS,
     max: process.env.MAX_REQUESTS,
     message: {
@@ -12,4 +12,4 @@ const pixelRateLimiter = rateLimit({
     headers: true,
 });
 
-module.exports = pixelRateLimiter;
+module.exports = rateLimiter;
