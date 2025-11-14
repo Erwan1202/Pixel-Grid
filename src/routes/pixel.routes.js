@@ -23,7 +23,7 @@ router.get(
     pixelController.getPixel
 );
 
-// POST /pixels/:id - Create a new pixel
+// POST /pixels - Create a new pixel
 router.post(
     "/",
     validateCreatePixel,
