@@ -28,10 +28,6 @@ exports.validateCreateCanvas = [
 ];
 
 exports.validateUpdateCanvas = [
-    param("id")
-        .isInt({ min: 1 })
-        .withMessage("id must be a valid integer"),
-
     body("name")
         .optional()
         .isString()
