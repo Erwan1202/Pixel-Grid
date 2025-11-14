@@ -27,7 +27,7 @@ const swaggerSpec = swaggerJSDoc(options);
 const setupSwagger = (app) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     console.log(
-        `Documentation Swagger disponible sur http://localhost:${
+        `Swagger documentation available at http://localhost:${
             process.env.PORT || 3000
         }/api-docs`
     );
