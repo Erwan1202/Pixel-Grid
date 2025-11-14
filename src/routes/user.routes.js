@@ -34,6 +34,7 @@ router.post(
 // PUT /users/:id - Update a user
 router.put(
     "/:id",
+    validateId,
     validateUpdateUser,
     handleValidationErrors,
     userController.updateUser
