@@ -34,6 +34,7 @@ router.post(
 // PUT /pixels/:id - Update a pixel
 router.put(
     "/:id",
+    validateId,
     validateUpdatePixel,
     handleValidationErrors,
     pixelController.updatePixel
