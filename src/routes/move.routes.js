@@ -20,7 +20,7 @@ router.get(
     moveController.getMove
 );
 
-// POST /moves/:id - Create a move
+// POST /moves - Create a move
 router.post(
     "/",
     authenticate,
