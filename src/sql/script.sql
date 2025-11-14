@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS pixels(
     y         INT       NOT NULL CHECK (y >= 0),
     color     CHAR(7)   NOT NULL,
     placed_by INT       NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    canvas_id INT       NOT NULL REFERENCES canvases(id) ON DELETE CASCADE,
+    placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    canvas_id INT       NOT NULL REFERENCES canvases(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS bans(
