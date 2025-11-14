@@ -65,7 +65,7 @@ exports.deleteBan = async (req, res) => {
         const deletedCount = await Ban.deleteOne(banId);
 
         if (deletedCount === 0) {
-            return res.status(404).json({ error: "ban not found" });
+            return res.status(404).json({ error: "Ban not found" });
         }
 
         res.status(204).send();
