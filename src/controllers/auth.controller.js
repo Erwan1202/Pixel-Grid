@@ -6,11 +6,10 @@ exports.registerUser = async (req, res) => {
     try {
         const { username, password, birth_date } = req.body;
         if (!username || !password || !birth_date) {
-            return res.status(400).json({ err: "All fields are requried" });
+            return res.status(400).json({ error: "All fields are requried" });
         }
 
         const user = await User.createOne({ username, password, birth_date });
-
         res.status(201).json(user);
     } catch (err) {
         res.status(409).json({ error: err.message });
