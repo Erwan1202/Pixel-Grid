@@ -14,7 +14,7 @@ const {
 
 /**
  * @openapi
- * /pixels:
+ * /api/pixels:
  *   get:
  *     tags: [Pixel]
  *     summary: List all pixels
@@ -29,7 +29,7 @@ router.get(
 
 /**
  * @openapi
- * /pixels/{id}:
+ * /api/pixels/{id}:
  *   get:
  *     tags: [Pixel]
  *     summary: Get a specific pixel by ID
@@ -57,7 +57,7 @@ router.get(
 
 /**
  * @openapi
- * /pixels:
+ * /api/pixels:
  *   post:
  *     tags: [Pixel]
  *     summary: Create a new pixel
@@ -96,7 +96,7 @@ router.post(
 
 /**
  * @openapi
- * /pixels/{id}:
+ * /api/pixels/{id}:
  *   put:
  *     tags: [Pixel]
  *     summary: Update an existing pixel
@@ -141,7 +141,7 @@ router.put(
 
 /**
  * @openapi
- * /pixels/{id}:
+ * /api/pixels/{id}:
  *   delete:
  *     tags: [Pixel]
  *     summary: Delete a pixel (admin only)

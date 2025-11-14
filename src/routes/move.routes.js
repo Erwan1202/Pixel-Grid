@@ -14,7 +14,7 @@ const {
 
 /**
  * @openapi
- * /moves:
+ * /api/moves:
  *   get:
  *     tags: [Move]
  *     summary: List all moves
@@ -37,7 +37,7 @@ router.get(
 
 /**
  * @openapi
- * /moves/{id}:
+ * /api/moves/{id}:
  *   get:
  *     tags: [Move]
  *     summary: Get a specific move by ID
@@ -73,7 +73,7 @@ router.get(
 
 /**
  * @openapi
- * /moves:
+ * /api/moves:
  *   post:
  *     tags: [Move]
  *     summary: Create a new move
@@ -120,7 +120,7 @@ router.post(
 
 /**
  * @openapi
- * /moves/{id}:
+ * /api/moves/{id}:
  *   put:
  *     tags: [Move]
  *     summary: Update an existing move
@@ -173,7 +173,7 @@ router.put(
 
 /**
  * @openapi
- * /moves/{id}:
+ * /api/moves/{id}:
  *   delete:
  *     tags: [Move]
  *     summary: Delete a move (admin only)

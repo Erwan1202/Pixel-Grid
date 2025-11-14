@@ -14,7 +14,7 @@ const {
 
 /**
  * @openapi
- * /admin/bans:
+ * /api/admin/bans:
  *   get:
  *     tags: [AdminBans]
  *     summary: List all bans
@@ -37,7 +37,7 @@ router.get(
 
 /**
  * @openapi
- * /admin/bans/{id}:
+ * /api/admin/bans/{id}:
  *   get:
  *     tags: [AdminBans]
  *     summary: Get a specific ban by ID
@@ -73,7 +73,7 @@ router.get(
 
 /**
  * @openapi
- * /admin/bans:
+ * /api/admin/bans:
  *   post:
  *     tags: [AdminBans]
  *     summary: Create a new ban
@@ -117,7 +117,7 @@ router.post(
 
 /**
  * @openapi
- * /admin/bans/{id}:
+ * /api/admin/bans/{id}:
  *   put:
  *     tags: [AdminBans]
  *     summary: Update an existing ban
@@ -167,7 +167,7 @@ router.put(
 
 /**
  * @openapi
- * /admin/bans/{id}:
+ * /api/admin/bans/{id}:
  *   delete:
  *     tags: [AdminBans]
  *     summary: Delete a ban by ID

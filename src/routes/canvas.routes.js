@@ -14,7 +14,7 @@ const {
 
 /**
  * @openapi
- * /canvases:
+ * /api/canvases:
  *   get:
  *     tags: [Canvas]
  *     summary: List all canvases
@@ -37,7 +37,7 @@ router.get(
 
 /**
  * @openapi
- * /canvases/{id}:
+ * /api/canvases/{id}:
  *   get:
  *     tags: [Canvas]
  *     summary: Get a specific canvas by ID
@@ -73,7 +73,7 @@ router.get(
 
 /**
  * @openapi
- * /canvases:
+ * /api/canvases:
  *   post:
  *     tags: [Canvas]
  *     summary: Create a new canvas
@@ -120,7 +120,7 @@ router.post(
 
 /**
  * @openapi
- * /canvases/{id}:
+ * /api/canvases/{id}:
  *   put:
  *     tags: [Canvas]
  *     summary: Update an existing canvas
@@ -173,7 +173,7 @@ router.put(
 
 /**
  * @openapi
- * /canvases/{id}:
+ * /api/canvases/{id}:
  *   delete:
  *     tags: [Canvas]
  *     summary: Delete a canvas by ID

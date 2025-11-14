@@ -9,7 +9,7 @@ const {
 
 /**
  * @openapi
- * /register:
+ * /api/auth/register:
  *   post:
  *     tags: [Auth]
  *     summary: Register a new user
@@ -50,7 +50,7 @@ router.post(
 
 /**
  * @openapi
- * /login:
+ * /api/auth/login:
  *   post:
  *     tags: [Auth]
  *     summary: Login a user

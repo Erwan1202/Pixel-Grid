@@ -34,8 +34,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/pixels", pixelRoutes);
 app.use("/api/moves", moveRoutes);
 app.use("/api/canvases", canvasRoutes);
+
 app.use("/api/admin", adminRoutes);
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api/admin/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Database & Documentation
 connectMongo();
