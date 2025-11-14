@@ -12,7 +12,7 @@ const {
     validateUpdateBan
 } = require("../middlewares/validators/ban.validator");
 
-// GET /bans - List all bans
+// GET /admin/bans - List all bans
 router.get(
     "/bans",
     authenticate,
@@ -20,7 +20,7 @@ router.get(
     adminController.listBans
 );
 
-// GET /bans/:id - Get a specific ban
+// GET /admin/bans/:id - Get a specific ban
 router.get(
     "/bans/:id",
     authenticate,
@@ -30,7 +30,7 @@ router.get(
     adminController.getBan
 );
 
-// POST /bans - Create a new ban
+// POST /admin/bans - Create a new ban
 router.post(
     "/bans",
     authenticate,
@@ -40,7 +40,7 @@ router.post(
     adminController.createBan
 );
 
-// PUT /bans/:id - Update a ban
+// PUT /admin/bans/:id - Update a ban
 router.put(
     "/bans/:id",
     authenticate,
@@ -50,7 +50,7 @@ router.put(
     adminController.updateBan
 );
 
-// DELETE /bans/:id - Delete a ban
+// DELETE /admin/bans/:id - Delete a ban
 router.delete(
     "/bans/:id",
     authenticate,
