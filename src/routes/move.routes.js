@@ -3,6 +3,14 @@ const router = express.Router();
 const requireRole = require("../middlewares/roles");
 const authenticate = require("../middlewares/authenticate");
 const moveController = require("../controllers/move.controller");
+const {
+    validateId,
+    handleValidationErrors,
+} = require("../middlewares/validators");
+const {
+    validateCreateMove,
+    validateUpdateMove
+} = require("../middlewares/validators/move.validator");
 
 // GET /moves - List all moves
 router.get(
@@ -16,14 +24,18 @@ router.get(
 router.get(
     "/:id",
     authenticate,
+    validateId,
+    handleValidationErrors,
     requireRole("admin"),
     moveController.getMove
 );
 
-// POST /moves - Create a move
+// POST /moves - Create a new move
 router.post(
     "/",
     authenticate,
+    validateCreateMove,
+    handleValidationErrors,
     requireRole("admin"),
     moveController.createMove
 );
@@ -32,6 +44,9 @@ router.post(
 router.put(
     "/:id",
     authenticate,
+    validateId,
+    validateUpdateMove,
+    handleValidationErrors,
     requireRole("admin"),
     moveController.updateMove
 );
@@ -40,6 +55,8 @@ router.put(
 router.delete(
     "/:id",
     authenticate,
+    validateId,
+    handleValidationErrors,
     requireRole("admin"),
     moveController.deleteMove
 );
