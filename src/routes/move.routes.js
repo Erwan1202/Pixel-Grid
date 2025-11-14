@@ -6,13 +6,28 @@ const moveController = require("../controllers/move.controller");
 const {
     validateId,
     handleValidationErrors,
-} = require("../middlewares/validators");
+} = require("../middlewares/validator");
 const {
-    validateCreateMove,
-    validateUpdateMove
-} = require("../middlewares/validators/move.validator");
+    validateCreatePixel,
+    validateUpdatePixel,
+} = require("../middlewares/validators/pixel.validator");
 
-// GET /moves - List all moves
+/**
+ * @openapi
+ * /moves:
+ *   get:
+ *     tags: [Move]
+ *     summary: List all moves
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of moves.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden (admin role required).
+ */
 router.get(
     "/",
     authenticate,
@@ -20,7 +35,33 @@ router.get(
     moveController.listMoves
 );
 
-// GET /moves/:id - Get a specific move
+/**
+ * @openapi
+ * /moves/{id}:
+ *   get:
+ *     tags: [Move]
+ *     summary: Get a specific move by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The move ID
+ *     responses:
+ *       200:
+ *         description: Move retrieved successfully.
+ *       400:
+ *         description: Invalid ID.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ *       404:
+ *         description: Move not found.
+ */
 router.get(
     "/:id",
     authenticate,
@@ -30,28 +71,133 @@ router.get(
     moveController.getMove
 );
 
-// POST /moves - Create a new move
+/**
+ * @openapi
+ * /moves:
+ *   post:
+ *     tags: [Move]
+ *     summary: Create a new move
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - x
+ *               - y
+ *               - color
+ *             properties:
+ *               x:
+ *                 type: integer
+ *                 example: 10
+ *               y:
+ *                 type: integer
+ *                 example: 20
+ *               color:
+ *                 type: string
+ *                 example: "#FF0000"
+ *     responses:
+ *       201:
+ *         description: Move created successfully.
+ *       400:
+ *         description: Validation error.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden (admin role required).
+ */
 router.post(
     "/",
     authenticate,
-    validateCreateMove,
+    validateCreatePixel,
     handleValidationErrors,
     requireRole("admin"),
     moveController.createMove
 );
 
-// PUT /moves/:id - Update a move
+/**
+ * @openapi
+ * /moves/{id}:
+ *   put:
+ *     tags: [Move]
+ *     summary: Update an existing move
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The move ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               x:
+ *                 type: integer
+ *                 example: 15
+ *               y:
+ *                 type: integer
+ *                 example: 25
+ *               color:
+ *                 type: string
+ *                 example: "#00FF00"
+ *     responses:
+ *       200:
+ *         description: Move updated successfully.
+ *       400:
+ *         description: Invalid ID or validation error.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ *       404:
+ *         description: Move not found.
+ */
 router.put(
     "/:id",
     authenticate,
     validateId,
-    validateUpdateMove,
+    validateUpdatePixel,
     handleValidationErrors,
     requireRole("admin"),
     moveController.updateMove
 );
 
-// DELETE /moves/:id - Delete a move
+/**
+ * @openapi
+ * /moves/{id}:
+ *   delete:
+ *     tags: [Move]
+ *     summary: Delete a move (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The move ID
+ *     responses:
+ *       200:
+ *         description: Move deleted successfully.
+ *       400:
+ *         description: Invalid ID.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden (admin role required).
+ *       404:
+ *         description: Move not found.
+ */
 router.delete(
     "/:id",
     authenticate,

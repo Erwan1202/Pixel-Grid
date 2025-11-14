@@ -5,60 +5,206 @@ const authenticate = require("../middlewares/authenticate");
 const canvasController = require("../controllers/canvas.controller");
 const {
     validateId,
-    handleValidationError
+    handleValidationErrors,
 } = require("../middlewares/validator");
 const {
     validateCreateCanvas,
-    validateUpdateCanvas
+    validateUpdateCanvas,
 } = require("../middlewares/validators/canvas.validator");
 
-// GET /canvases - List all canvases
+/**
+ * @openapi
+ * /canvases:
+ *   get:
+ *     tags: [Canvas]
+ *     summary: List all canvases
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of canvases.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden (admin role required).
+ */
 router.get(
-  "/",
-  authenticate,
-  requireRole("admin"),
-  canvasController.listCanvases
+    "/",
+    authenticate,
+    requireRole("admin"),
+    canvasController.listCanvases
 );
 
-// GET /canvases/:id - Get a specific canvas
+/**
+ * @openapi
+ * /canvases/{id}:
+ *   get:
+ *     tags: [Canvas]
+ *     summary: Get a specific canvas by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The canvas ID
+ *     responses:
+ *       200:
+ *         description: Canvas retrieved successfully.
+ *       400:
+ *         description: Invalid ID.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ *       404:
+ *         description: Canvas not found.
+ */
 router.get(
-  "/:id",
-  authenticate,
-  validateId,
-  handleValidationErrors,
-  requireRole("admin"),
-  canvasController.getCanvas
+    "/:id",
+    authenticate,
+    validateId,
+    handleValidationErrors,
+    requireRole("admin"),
+    canvasController.getCanvas
 );
 
-// POST /canvases - Create a new canvas
+/**
+ * @openapi
+ * /canvases:
+ *   post:
+ *     tags: [Canvas]
+ *     summary: Create a new canvas
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - width
+ *               - height
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Home Page Layout"
+ *               width:
+ *                 type: number
+ *                 example: 1920
+ *               height:
+ *                 type: number
+ *                 example: 1080
+ *     responses:
+ *       201:
+ *         description: Canvas created successfully.
+ *       400:
+ *         description: Validation error.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ */
 router.post(
-  "/",
-  authenticate,
-  validateCreateCanvas,
-  handleValidationErrors,
-  requireRole("admin"),
-  canvasController.createCanvas
+    "/",
+    authenticate,
+    validateCreateCanvas,
+    handleValidationErrors,
+    requireRole("admin"),
+    canvasController.createCanvas
 );
 
-// PUT /canvases/:id - Update a canvas
+/**
+ * @openapi
+ * /canvases/{id}:
+ *   put:
+ *     tags: [Canvas]
+ *     summary: Update an existing canvas
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The canvas ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Updated Layout"
+ *               width:
+ *                 type: number
+ *                 example: 1280
+ *               height:
+ *                 type: number
+ *                 example: 720
+ *     responses:
+ *       200:
+ *         description: Canvas updated successfully.
+ *       400:
+ *         description: Invalid ID or validation error.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ *       404:
+ *         description: Canvas not found.
+ */
 router.put(
-  "/:id",
-  authenticate,
-  validateId,
-  validateUpdateCanvas,
-  handleValidationErrors,
-  requireRole("admin"),
-  canvasController.updateCanvas
+    "/:id",
+    authenticate,
+    validateId,
+    validateUpdateCanvas,
+    handleValidationErrors,
+    requireRole("admin"),
+    canvasController.updateCanvas
 );
 
-// DELETE canvases/:id - Delete a canvas
+/**
+ * @openapi
+ * /canvases/{id}:
+ *   delete:
+ *     tags: [Canvas]
+ *     summary: Delete a canvas by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The canvas ID
+ *     responses:
+ *       200:
+ *         description: Canvas deleted successfully.
+ *       400:
+ *         description: Invalid ID.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ *       404:
+ *         description: Canvas not found.
+ */
 router.delete(
-  "/:id",
-  authenticate,
-  validateId,
-  handleValidationErrors,
-  requireRole("admin"),
-  canvasController.deleteCanvas
+    "/:id",
+    authenticate,
+    validateId,
+    handleValidationErrors,
+    requireRole("admin"),
+    canvasController.deleteCanvas
 );
 
 module.exports = router;

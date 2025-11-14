@@ -12,10 +12,42 @@ const {
     validateUpdatePixel,
 } = require("../middlewares/validators/pixel.validator");
 
-// GET /pixels - List all pixels
-router.get("/", pixelController.listPixels);
+/**
+ * @openapi
+ * /pixels:
+ *   get:
+ *     tags: [Pixel]
+ *     summary: List all pixels
+ *     responses:
+ *       200:
+ *         description: A list of pixels.
+ */
+router.get(
+    "/",
+    pixelController.listPixels
+);
 
-// GET /pixels/:id - Get a specific pixel
+/**
+ * @openapi
+ * /pixels/{id}:
+ *   get:
+ *     tags: [Pixel]
+ *     summary: Get a specific pixel by ID
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The pixel ID
+ *     responses:
+ *       200:
+ *         description: Pixel retrieved successfully.
+ *       400:
+ *         description: Invalid ID.
+ *       404:
+ *         description: Pixel not found.
+ */
 router.get(
     "/:id",
     validateId,
@@ -23,7 +55,38 @@ router.get(
     pixelController.getPixel
 );
 
-// POST /pixels - Create a new pixel
+/**
+ * @openapi
+ * /pixels:
+ *   post:
+ *     tags: [Pixel]
+ *     summary: Create a new pixel
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - x
+ *               - y
+ *               - color
+ *             properties:
+ *               x:
+ *                 type: integer
+ *                 example: 10
+ *               y:
+ *                 type: integer
+ *                 example: 20
+ *               color:
+ *                 type: string
+ *                 example: "#FF0000"
+ *     responses:
+ *       201:
+ *         description: Pixel created successfully.
+ *       400:
+ *         description: Validation error.
+ */
 router.post(
     "/",
     validateCreatePixel,
@@ -31,7 +94,43 @@ router.post(
     pixelController.createPixel
 );
 
-// PUT /pixels/:id - Update a pixel
+/**
+ * @openapi
+ * /pixels/{id}:
+ *   put:
+ *     tags: [Pixel]
+ *     summary: Update an existing pixel
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The pixel ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               x:
+ *                 type: integer
+ *                 example: 15
+ *               y:
+ *                 type: integer
+ *                 example: 25
+ *               color:
+ *                 type: string
+ *                 example: "#00FF00"
+ *     responses:
+ *       200:
+ *         description: Pixel updated successfully.
+ *       400:
+ *         description: Invalid ID or validation error.
+ *       404:
+ *         description: Pixel not found.
+ */
 router.put(
     "/:id",
     validateId,
@@ -40,7 +139,33 @@ router.put(
     pixelController.updatePixel
 );
 
-// DELETE /pixels/:id - Delete a pixel
+/**
+ * @openapi
+ * /pixels/{id}:
+ *   delete:
+ *     tags: [Pixel]
+ *     summary: Delete a pixel (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The pixel ID
+ *     responses:
+ *       200:
+ *         description: Pixel deleted successfully.
+ *       400:
+ *         description: Invalid ID.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden (admin role required).
+ *       404:
+ *         description: Pixel not found.
+ */
 router.delete(
     "/:id",
     authenticate,

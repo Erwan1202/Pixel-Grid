@@ -7,7 +7,40 @@ const {
     validateLogin,
 } = require("../middlewares/validators/auth.validator");
 
-// POST /register - Register a user
+/**
+ * @openapi
+ * /register:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: johndoe
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: P@ssw0rd!
+ *     responses:
+ *       201:
+ *         description: User registered successfully.
+ *       400:
+ *         description: Validation error.
+ */
 router.post(
     "/register",
     validateRegister,
@@ -15,7 +48,38 @@ router.post(
     authController.registerUser
 );
 
-// POST /login - Login a user
+/**
+ * @openapi
+ * /login:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: P@ssw0rd!
+ *     responses:
+ *       200:
+ *         description: User logged in successfully (returns JWT token).
+ *       400:
+ *         description: Validation error.
+ *       401:
+ *         description: Invalid credentials.
+ */
 router.post(
     "/login",
     validateLogin,
